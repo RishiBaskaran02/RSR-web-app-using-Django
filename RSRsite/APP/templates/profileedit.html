@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+      integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        max-width: 330px;
+        padding: 15px;
+      }
+
+      .form-signin .form-floating:focus-within {
+        z-index: 2;
+      }
+
+      .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      .form-signin input[type="phone"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      .form-signin input[type="date"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      .form-signin input[type="text"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+   /* Custom default button */
+   .btn-secondary,
+      .btn-secondary:hover,
+      .btn-secondary:focus {
+        color: #333;
+        text-shadow: none; /* Prevent inheritance from `body` */
+      }
+
+      /*
+ * Base structure
+ */
+
+      /* body {
+        text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+      } */
+
+      .cover-container {
+        max-width: 42em;
+      }
+
+      /*
+ * Header
+ */
+
+ .nav-masthead .nav-link {
+        color: rgb(0, 0, 0);
+        border-bottom: 0.25rem solid transparent;
+      }
+
+      .nav-masthead .nav-link:hover,
+      .nav-masthead .nav-link:focus {
+        border-bottom-color: rgba(23, 23, 23, 0.25);
+      }
+
+      .nav-masthead .nav-link + .nav-link {
+        margin-left: 1rem;
+      }
+
+      .nav-masthead .active {
+        color: rgba(23, 23, 23, 0.582);
+        border-bottom-color: rgb(0, 0, 0);
+      }
+      .formreg{
+            margin-top: 100px;
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+  </head>
+  <body class="text-center d-flex h-100 text-center text-dark bg-white">
+      <div class=" d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <header class="mb-auto">
+              <div class="cover-container mx-auto">
+                {% if request.session.username %}
+                    <a href="/Account/"><h6> go Back</a>, &emsp13;&emsp13;{{ request.session.username }}</h6>
+                {% endif %}
+              </div>
+            </header>
+            {% for Account in AccountData %}
+            <div class="modal-body p-5 pt-0 formreg">
+                  <form class="cover-container mx-auto" action="/UpdateAccount/" method="post" onsubmit="return PassCheck()" id="updform">
+                    {% csrf_token %}
+                        <div class="form-floating mb-3">
+                              <input type="text" class="form-control rounded-3" name="fullname" id="fullname" placeholder="{{ Account.fullname }}" readonly>
+                              <label for="floatingInput">{{ Account.fullname }}</label>
+                            </div>
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control rounded-3"  name="email" id="email" placeholder="{{ Account.email }}" readonly>
+                      <label for="floatingInput">{{ Account.email }}</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control rounded-3" name="dob" id="dob" placeholder="{{ Account.DOB }}" value="{{ Account.DOB }}" required>
+                        <label for="floatingInput">{{ Account.DOB }}</label>
+                  
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="phone" class="form-control rounded-3" name="phone" id="phone" placeholder="{{ Account.Phone }}" value="{{ Account.Phone }}" maxlength="10" required>
+                        <label for="floatingInput">{{ Account.Phone }}</label>
+                  
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control rounded-3" name="address" value="{{ Account.address }}" id="address" placeholder="{{ Account.address }}" required>
+                        <label for="floatingInput">{{ Account.address }}</label>
+                  
+                      </div>
+                      <div class="form-floating mb-3">
+                        
+                        <input type="password" class="form-control rounded-3" name="Opassword" id="Opassword" placeholder="Old Password" required>
+                        <label for="floatingPassword">old password</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-3" name="Npassword" id="Npassword" placeholder="New Password" required>
+                        <label for="floatingPassword">reset password</label>
+                      </div>
+                   
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary bg-dark" type="submit">Save</button>
+                  </form>
+                </div>
+                {% endfor %}
+              </div>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+              <script>
+                function PassCheck(){
+                  oldPass = document.getElementById('Opassword').value;
+                  $.ajax({
+                    type:"GET",
+                    url: "/PassCheck/",
+                    data: {
+                      Oldpass : oldPass,
+                    },
+                    success: function(data){
+                      if(data == "1"){
+                        p = document.getElementById('updform');
+                        p.submit();
+                      }
+                      else{
+                        alert("Old Password Does not match")
+                        document.getElementById("Opassword").value = "";
+                      }
+                    }
+                  });
+                  return false
+                }
+              </script>
+                
+  </body>
+</html>
